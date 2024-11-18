@@ -13,8 +13,10 @@ export PATH=$PATH:$SPARK_HOME/bin
 If you don't have Java install, download it for your env. In case of mac, jre-8u431-macosx-aarch64.dmg from https://www.java.com/en/download/, and follow instructions on https://www.java.com/en/download/help/mac_install.html.
 
 ## Four modules to learn Spark
-1. Core
-Example: word count
+### 1. Core
+**Example: word count**
+<br>
+
 ```shell
 spark-shell
 ```
@@ -56,9 +58,19 @@ kvRDD: org.apache.spark.rdd.RDD[(String, Int)] = MapPartitionsRDD[14] at map at 
 wordCounts: org.apache.spark.rdd.RDD[(String, Int)] = ShuffledRDD[15] at reduceByKey at /Users/chloe/git/synergit/spark-0-to-1/temp.scala:26
 res3: Array[(Int, String)] = Array((67,the), (63,Spark), (54,a), (51,and), (50,of))
 ```
-2. Spark SQL
-3. Spark MLlib
-4. structured streaming
+
+**Key concepts**
+RDD: https://spark.apache.org/docs/latest/rdd-programming-guide.html#resilient-distributed-datasets-rdds
+RDD Operations: https://spark.apache.org/docs/latest/rdd-programming-guide.html#rdd-operations
+Lazy Evaluation: https://medium.com/@john_tringham/spark-concepts-simplified-lazy-evaluation-d398891e0568
+
+**Common Transformations**
+* map(func)
+* mapPartitions(func)
+
+## 2. Spark SQL
+## 3. Spark MLlib
+## 4. structured streaming
 
 
 
