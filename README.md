@@ -6,3 +6,6 @@ This is a repo for Spark related topics
 2. Spark SQL
 3. Spark MLlib
 4. structured streaming
+
+Reference
+* https://github.com/wulei-bj-cn/learn-spark
