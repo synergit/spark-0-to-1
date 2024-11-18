@@ -6,6 +6,10 @@ Install Spark on your local: https://spark.apache.org/downloads.html
 1. download
 2. unzip
 3. configure system $PATH
+```shell
+export SPARK_HOME=${unziped file path}
+export PATH=$PATH:$SPARK_HOME/bin
+```
 
 ## Four modules to learn Spark
 1. Core
