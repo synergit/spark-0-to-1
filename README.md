@@ -60,13 +60,17 @@ res3: Array[(Int, String)] = Array((67,the), (63,Spark), (54,a), (51,and), (50,o
 ```
 
 **Key concepts**
-RDD: https://spark.apache.org/docs/latest/rdd-programming-guide.html#resilient-distributed-datasets-rdds
-RDD Operations: https://spark.apache.org/docs/latest/rdd-programming-guide.html#rdd-operations
-Lazy Evaluation: https://medium.com/@john_tringham/spark-concepts-simplified-lazy-evaluation-d398891e0568
+
+* RDD: https://spark.apache.org/docs/latest/rdd-programming-guide.html#resilient-distributed-datasets-rdds
+* RDD Operations: https://spark.apache.org/docs/latest/rdd-programming-guide.html#rdd-operations
+* Lazy Evaluation: https://medium.com/@john_tringham/spark-concepts-simplified-lazy-evaluation-d398891e0568
 
 **Common Transformations**
 * map(func)
 * mapPartitions(func)
+* mapPartitionsWithIndex(func)
+* flatMap(func): check [example](./wordcount-flatmap.scala)
+* filter(func)
 
 ## 2. Spark SQL
 ## 3. Spark MLlib
