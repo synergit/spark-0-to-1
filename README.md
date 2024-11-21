@@ -72,6 +72,8 @@ res3: Array[(Int, String)] = Array((67,the), (63,Spark), (54,a), (51,and), (50,o
 * Shuffle
 * WorkOffer
 * Processor_level(executor), Node_level, RACK_level, Any
+* Executor-Memory: https://kb.databricks.com/clusters/spark-executor-memory
+* RDD persistent caching: https://data-flair.training/blogs/apache-spark-rdd-persistence-caching/
 
 
 **Common Transformations**
