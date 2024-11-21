@@ -60,23 +60,51 @@ res3: Array[(Int, String)] = Array((67,the), (63,Spark), (54,a), (51,and), (50,o
 ```
 
 **Key concepts**
-
+<br>
 * RDD: https://spark.apache.org/docs/latest/rdd-programming-guide.html#resilient-distributed-datasets-rdds
 * RDD Operations: https://spark.apache.org/docs/latest/rdd-programming-guide.html#rdd-operations
 * Lazy Evaluation: https://medium.com/@john_tringham/spark-concepts-simplified-lazy-evaluation-d398891e0568
+* DAGScheduler
+* TaskScheduler
+* SchedulerBackeng
+* ExecutorBackend
+* Stage
+* Shuffle
+* WorkOffer
+* Processor_level(executor), Node_level, RACK_level, Any
+
 
 **Common Transformations**
+<br>
+**Transformation without Shuffle**
+<br>
 * map(func)
 * mapPartitions(func)
 * mapPartitionsWithIndex(func)
 * flatMap(func): check [example](./wordcount-flatmap.scala)
 * filter(func)
 
+**Action**
+<br>
+* show(), take() and collect():[.collect() vs .show() vs .take() in Apache Spark](https://medium.com/@vishalbarvaliya/collect-vs-show-vs-take-in-apache-spark-683531e149a1)
+
+**Transformation with Shuffle**
+<br>
+* groupByKey
+* reduceByKey
+* aggregateByKey
+* sortByKey
+
 ## 2. Spark SQL
 ## 3. Spark MLlib
 ## 4. structured streaming
 
+# Utility
 
+Run scala file in Spark-Shell
+```
+scala> :load {file_name}
+```
 
 Reference
 * https://github.com/wulei-bj-cn/learn-spark
