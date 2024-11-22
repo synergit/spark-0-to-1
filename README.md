@@ -59,8 +59,8 @@ wordCounts: org.apache.spark.rdd.RDD[(String, Int)] = ShuffledRDD[15] at reduceB
 res3: Array[(Int, String)] = Array((67,the), (63,Spark), (54,a), (51,and), (50,of))
 ```
 
-**Key concepts**
-<br>
+#### **Key concepts**
+
 * RDD: https://spark.apache.org/docs/latest/rdd-programming-guide.html#resilient-distributed-datasets-rdds
 * RDD Operations: https://spark.apache.org/docs/latest/rdd-programming-guide.html#rdd-operations
 * Lazy Evaluation: https://medium.com/@john_tringham/spark-concepts-simplified-lazy-evaluation-d398891e0568
@@ -76,10 +76,14 @@ res3: Array[(Int, String)] = Array((67,the), (63,Spark), (54,a), (51,and), (50,o
 * RDD persistent caching: https://data-flair.training/blogs/apache-spark-rdd-persistence-caching/
 
 
-**Common Transformations**
-<br>
+####  **Common Transformations**
+
+![spark-data-life-cycle](/spark-lifecycle-trans.jpg)
+
+
 **Transformation without Shuffle**
 <br>
+
 * map(func)
 * mapPartitions(func)
 * mapPartitionsWithIndex(func)
@@ -92,14 +96,22 @@ res3: Array[(Int, String)] = Array((67,the), (63,Spark), (54,a), (51,and), (50,o
 
 **Transformation with Shuffle**
 <br>
+
 * groupByKey
 * reduceByKey
 * aggregateByKey
 * sortByKey
 
+**Share data across clluster**
+<br>
+
+* broadcast
+* accumulator
+
 ## 2. Spark SQL
 ## 3. Spark MLlib
 ## 4. structured streaming
+
 
 # Utility
 
