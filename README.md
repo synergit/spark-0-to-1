@@ -73,7 +73,19 @@ res3: Array[(Int, String)] = Array((67,the), (63,Spark), (54,a), (51,and), (50,o
 * WorkOffer
 * Processor_level(executor), Node_level, RACK_level, Any
 * Executor-Memory: https://kb.databricks.com/clusters/spark-executor-memory
+* Executor memory configuration: Reserved Memory(300MB), User Memory, Execution Memory and Storage Memory. Between Execution Memory and Storage Memory: 
+    * for ETL: RDD cache is not used often, recommend to putting `spark.memoty.storgeFraction` small. 
+    * for ML: RDD cache is very helpful to improve performance, recommend to put `spark.memoty.storgeFraction` big. 
 * RDD persistent caching: https://data-flair.training/blogs/apache-spark-rdd-persistence-caching/
+* BlockManagerMast, BlockManager, MemoryStore, DiskStore
+* File persistency:
+    * RDD cache: persist on memory or disk
+    * Shuffle temporary file: persist on disk
+    * Broadcast file: persist on memory
+* Configure Spark with "spark-defaults.conf", CLI command `--conf` and "SparkConf" instance, with increased priority: "SparkConf" will overwrite `--conf`, etc...
+    * Memory: `spark.executor.memory`, `spark.executor.fraction`, `spark.memory.storageFraction`, `spark.executor.instances`
+    * CPU: `spark.executor.cores`, `spark.default.parallelism`, `spark.sql,shuffle.partition`
+    * Disk: `spark.local.dir`
 
 
 ####  **Common Transformations**
@@ -102,7 +114,7 @@ res3: Array[(Int, String)] = Array((67,the), (63,Spark), (54,a), (51,and), (50,o
 * aggregateByKey
 * sortByKey
 
-**Share data across clluster**
+[**Shared Variables**](https://spark.apache.org/docs/3.5.0/rdd-programming-guide.html#shared-variables)
 <br>
 
 * broadcast
