@@ -121,6 +121,7 @@ res3: Array[(Int, String)] = Array((67,the), (63,Spark), (54,a), (51,and), (50,o
 * accumulator
 
 ## 2. Spark SQL
+![spark-sql](/spark-core-sql.png)
 ## 3. Spark MLlib
 ## 4. structured streaming
 
