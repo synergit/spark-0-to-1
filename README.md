@@ -121,7 +121,10 @@ res3: Array[(Int, String)] = Array((67,the), (63,Spark), (54,a), (51,and), (50,o
 * accumulator
 
 ## 2. Spark SQL
+Spark SQL, Spark RDD, and their relationship
 ![spark-sql](/spark-core-sql.png)
+Spark with Hive, two ways for Spark to use Hive
+![spark and hive](/hive+spark.png)
 ## 3. Spark MLlib
 ## 4. structured streaming
 
