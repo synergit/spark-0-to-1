@@ -135,6 +135,9 @@ On Mac, Spark UI is at http://localhost:4040/jobs/ after the run `spark-shell`
 ![spark UI](/spark-sql/Spark-ui.png)
 
 ### 3. Spark MLlib
+
+![Spark MLlib for feature engineering](/spark-MLlib/spark-MLlib-feature-engineering.png)
+
 ### 4. structured streaming
 
 

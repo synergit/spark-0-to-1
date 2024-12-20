@@ -74,6 +74,7 @@ val assembler = new VectorAssembler()
  
 // 在DataFrame应用VectorAssembler，生成特征向量字段"features"
 engineeringDF = assembler.transform(engineeringDF)
+engineeringDF.printSchema()
 
 import org.apache.spark.ml.feature.ChiSqSelector
 import org.apache.spark.ml.feature.ChiSqSelectorModel
@@ -82,51 +83,105 @@ import org.apache.spark.ml.feature.ChiSqSelectorModel
 val selector = new ChiSqSelector()
 .setFeaturesCol("features")
 .setLabelCol("SalePriceInt")
-.setNumTopFeatures(70)
+.setNumTopFeatures(20)
+
+/* Following ChiSeqSelector and MinMaxScalar report error */
  
 // 调用fit函数，在DataFrame之上完成卡方检验
-val chiSquareModel = selector.fit(engineeringDF)
+// val chiSquareModel = selector.fit(engineeringDF)
  
-// 获取ChiSqSelector选取出来的入选特征集合（索引）
-val indexs: Array[Int] = chiSquareModel.selectedFeatures
+// // 获取ChiSqSelector选取出来的入选特征集合（索引）
+// val indexs: Array[Int] = chiSquareModel.selectedFeatures
  
-import scala.collection.mutable.ArrayBuffer
+// import scala.collection.mutable.ArrayBuffer
  
-val selectedFeatures: ArrayBuffer[String] = ArrayBuffer[String]()
+// val selectedFeatures: ArrayBuffer[String] = ArrayBuffer[String]()
  
-// 根据特征索引值，查找数据列的原始字段名
-for (index <- indexs) {
-    selectedFeatures += numericFields(index)
-}
+// // 根据特征索引值，查找数据列的原始字段名
+// for (index <- indexs) {
+//     selectedFeatures += numericFields(index)
+// }
 
-// 所有类型为Int的数值型字段
-// val numericFeatures: Array[String] = numericFields.map(_ + "Int").toArray
+// // 所有类型为Int的数值型字段
+// // val numericFeatures: Array[String] = numericFields.map(_ + "Int").toArray
  
-// 遍历每一个数值型字段
-for (field <- numericFeatures) { 
-    // 定义并初始化VectorAssembler
-    val assembler = new VectorAssembler()
-    .setInputCols(Array(field))
-    .setOutputCol(s"${field}Vector")
+// // 遍历每一个数值型字段
+// for (field <- numericFeatures) { 
+//     // 定义并初始化VectorAssembler
+//     val assembler = new VectorAssembler()
+//     .setInputCols(Array(field))
+//     .setOutputCol(s"${field}Vector")
     
-    // 调用transform把每个字段由Int转换为Vector类型
-    engineeringData = assembler.transform(engineeringData)
+//     // 调用transform把每个字段由Int转换为Vector类型
+//     engineeringData = assembler.transform(engineeringData)
+// }
+
+// import org.apache.spark.ml.feature.MinMaxScaler
+ 
+// // 锁定所有Vector数据列
+// val vectorFields: Array[String] = numericFeatures.map(_ + "Vector").toArray
+ 
+// // 归一化后的数据列
+// val scaledFields: Array[String] = vectorFields.map(_ + "Scaled").toArray
+ 
+// // 循环遍历所有Vector数据列
+// for (vector <- vectorFields) {
+//     // 定义并初始化MinMaxScaler
+//     val minMaxScaler = new MinMaxScaler()
+//     .setInputCol(vector)
+//     .setOutputCol(s"${vector}Scaled")
+//     // 使用MinMaxScaler，完成Vector数据列的归一化
+//     engineeringData = minMaxScaler.fit(engineeringData).transform(engineeringData)
+// }
+
+// 原始字段
+val fieldBedroom: String = "BedroomAbvGrInt"
+// 包含离散化数据的目标字段
+val fieldBedroomDiscrete: String = "BedroomDiscrete"
+// 指定离散区间，分别是[负无穷, 2]、[3, 4]和[5, 正无穷]
+val splits: Array[Double] = Array(Double.NegativeInfinity, 3, 5, Double.PositiveInfinity)
+ 
+import org.apache.spark.ml.feature.Bucketizer
+ 
+// 定义并初始化Bucketizer
+val bucketizer = new Bucketizer()
+// 指定原始列
+.setInputCol(fieldBedroom)
+// 指定目标列
+.setOutputCol(fieldBedroomDiscrete)
+// 指定离散区间
+.setSplits(splits)
+ 
+// 调用transform完成离散化转换
+engineeringDF = bucketizer.transform(engineeringDF)
+
+import org.apache.spark.ml.feature.OneHotEncoder
+ 
+// 非数值字段对应的目标索引字段，也即StringIndexer所需的“输出列”
+// val indexFields: Array[String] = categoricalFields.map(_ + "Index").toArray
+ 
+// 热独编码的目标字段，也即OneHotEncoder所需的“输出列”
+val oheFields: Array[String] = categoricalFields.map(_ + "OHE").toArray
+ 
+// 循环遍历所有索引字段，对其进行热独编码
+for ((indexField, oheField) <- indexFields.zip(oheFields)) {
+    val oheEncoder = new OneHotEncoder()
+    .setInputCol(indexField)
+    .setOutputCol(oheField)
+    engineeringDF = oheEncoder.transform(engineeringDF)
 }
 
-import org.apache.spark.ml.feature.MinMaxScaler
+import org.apache.spark.ml.feature.VectorAssembler
  
-// 锁定所有Vector数据列
-val vectorFields: Array[String] = numericFeatures.map(_ + "Vector").toArray
+/**
+入选的数值特征：selectedFeatures - doesn't work on my local
+归一化的数值特征：scaledFields - doesn't work on my local
+离散化的数值特征：fieldBedroomDiscrete
+热独编码的非数值特征：oheFields
+*/
  
-// 归一化后的数据列
-val scaledFields: Array[String] = vectorFields.map(_ + "Scaled").toArray
+val assembler = new VectorAssembler()
+.setInputCols(selectedFeatures ++ scaledFields ++ fieldBedroomDiscrete ++ oheFields)
+.setOutputCol("features")
  
-// 循环遍历所有Vector数据列
-for (vector <- vectorFields) {
-    // 定义并初始化MinMaxScaler
-    val minMaxScaler = new MinMaxScaler()
-    .setInputCol(vector)
-    .setOutputCol(s"${vector}Scaled")
-    // 使用MinMaxScaler，完成Vector数据列的归一化
-    engineeringData = minMaxScaler.fit(engineeringData).transform(engineeringData)
-}
+engineeringDF = assembler.transform(engineeringDF)
