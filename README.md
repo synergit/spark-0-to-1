@@ -12,7 +12,7 @@ export PATH=$PATH:$SPARK_HOME/bin
 ```
 If you don't have Java install, download it for your env. In case of mac, jre-8u431-macosx-aarch64.dmg from https://www.java.com/en/download/, and follow instructions on https://www.java.com/en/download/help/mac_install.html.
 
-## Four modules to learn Spark
+## 4 modules to learn Spark
 ### 1. Core
 **Example: word count**
 <br>
@@ -90,7 +90,7 @@ res3: Array[(Int, String)] = Array((67,the), (63,Spark), (54,a), (51,and), (50,o
 
 ####  **Common Transformations**
 
-![spark-data-life-cycle](/spark-lifecycle-trans.jpg)
+![spark-data-life-cycle](/spark-core/spark-lifecycle-trans.jpg)
 
 
 **Transformation without Shuffle**
@@ -120,13 +120,16 @@ res3: Array[(Int, String)] = Array((67,the), (63,Spark), (54,a), (51,and), (50,o
 * broadcast
 * accumulator
 
-## 2. Spark SQL
+### 2. Spark SQL
 Spark SQL, Spark RDD, and their relationship
-![spark-sql](/spark-core-sql.png)
+![spark-sql](/spark-sql/spark-core-sql.png)
 Spark with Hive, two ways for Spark to use Hive
-![spark and hive](/hive+spark.png)
-## 3. Spark MLlib
-## 4. structured streaming
+![spark and hive](/spark-sql/hive+spark.png)
+Spark UI
+On Mac, Spark UI is at http://localhost:4040/jobs/ after the run `spark-shell`
+
+### 3. Spark MLlib
+### 4. structured streaming
 
 
 # Utility
