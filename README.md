@@ -122,11 +122,17 @@ res3: Array[(Int, String)] = Array((67,the), (63,Spark), (54,a), (51,and), (50,o
 
 ### 2. Spark SQL
 Spark SQL, Spark RDD, and their relationship
+<br>
 ![spark-sql](/spark-sql/spark-core-sql.png)
+
 Spark with Hive, two ways for Spark to use Hive
+<br>
 ![spark and hive](/spark-sql/hive+spark.png)
+
 Spark UI
 On Mac, Spark UI is at http://localhost:4040/jobs/ after the run `spark-shell`
+<br>
+![spark UI](/spark-sql/Spark-ui.png)
 
 ### 3. Spark MLlib
 ### 4. structured streaming
