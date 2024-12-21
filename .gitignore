@@ -169,3 +169,11 @@ cython_debug/
 *SUCCESS*
 *.csv.crc
 *_SUCCESS*
+
+# scala
+.metals
+metals.*
+.scala-build/
+
+# vscode
+.vscode
