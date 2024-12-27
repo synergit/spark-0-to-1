@@ -15,12 +15,7 @@ import org.apache.spark.sql.types.IntegerType
 val selectedFields: DataFrame = trainDF.select("LotArea", "GrLivArea", "TotalBsmtSF", "GarageArea", "SalePrice")
  
 // 将所有字段都转换为整型Int
-val typedFields = selectedFields
-.withColumn("LotAreaInt",col("LotArea").cast(IntegerType)).drop("LotArea")
-.withColumn("GrLivAreaInt",col("GrLivArea").cast(IntegerType)).drop("GrLivArea")
-.withColumn("TotalBsmtSFInt",col("TotalBsmtSF").cast(IntegerType)).drop("TotalBsmtSF")
-.withColumn("GarageAreaInt",col("GarageArea").cast(IntegerType)).drop("GarageArea")
-.withColumn("SalePriceInt",col("SalePrice").cast(IntegerType)).drop("SalePrice")
+val typedFields = selectedFields.withColumn("LotAreaInt",col("LotArea").cast(IntegerType)).drop("LotArea").withColumn("GrLivAreaInt",col("GrLivArea").cast(IntegerType)).drop("GrLivArea").withColumn("TotalBsmtSFInt",col("TotalBsmtSF").cast(IntegerType)).drop("TotalBsmtSF").withColumn("GarageAreaInt",col("GarageArea").cast(IntegerType)).drop("GarageArea").withColumn("SalePriceInt",col("SalePrice").cast(IntegerType)).drop("SalePrice")
  
 typedFields.printSchema
  
@@ -42,11 +37,7 @@ val features: Array[String] = Array("LotAreaInt", "GrLivAreaInt", "TotalBsmtSFIn
 val assembler = new VectorAssembler().setInputCols(features).setOutputCol("features")
  
 // 调用捏合器的transform函数，完成特征向量的捏合
-val featuresAdded: DataFrame = assembler.transform(typedFields)
-.drop("LotAreaInt")
-.drop("GrLivAreaInt")
-.drop("TotalBsmtSFInt")
-.drop("GarageAreaInt")
+val featuresAdded: DataFrame = assembler.transform(typedFields).drop("LotAreaInt").drop("GrLivAreaInt").drop("TotalBsmtSFInt").drop("GarageAreaInt")
  
 featuresAdded.printSchema
  
@@ -62,10 +53,7 @@ val Array(trainSet, testSet) = featuresAdded.randomSplit(Array(0.7, 0.3))
 import org.apache.spark.ml.regression.LinearRegression
  
 // 构建线性回归模型，指定特征向量、预测标的与迭代次数
-val lr = new LinearRegression()
-.setLabelCol("SalePriceInt")
-.setFeaturesCol("features")
-.setMaxIter(10)
+val lr = new LinearRegression().setLabelCol("SalePriceInt").setFeaturesCol("features").setMaxIter(10)
  
 // 使用训练集trainSet训练线性回归模型
 val lrModel = lr.fit(trainSet)
