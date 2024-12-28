@@ -57,3 +57,8 @@ val predictions: DataFrame = lrModel.transform(testSet).select("SalePriceInt", "
 val evaluator = new RegressionEvaluator().setLabelCol("SalePriceInt").setPredictionCol("prediction").setMetricName("rmse")
 val rmse = evaluator.evaluate(predictions)
 println("Root Mean Squared Error (RMSE) on test data = " + rmse)
+
+/*
+rmse: Double = 39637.2448441402
+Root Mean Squared Error (RMSE) on test data = 39637.2448441402
+*/
