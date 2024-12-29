@@ -177,3 +177,6 @@ metals.*
 
 # vscode
 .vscode
+
+# spark mllib
+pipeline-models/
