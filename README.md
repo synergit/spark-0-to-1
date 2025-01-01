@@ -43,7 +43,7 @@ scala>
 ```
 then 
 ```
-scala> :load /Users/chloe/git/synergit/spark-0-to-1/word-count.scala
+scala> :load /Users/chloe/git/synergit/spark-0-to-1/{path to scala}/{filename}.scala
 ```
 Output
 ```shell
